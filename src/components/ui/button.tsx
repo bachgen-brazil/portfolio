@@ -1,6 +1,6 @@
 import * as React from "react";
 
-// Utilitário simples para juntar classes sem precisar instalar "clsx"
+// Função utilitária simples para juntar classes (substitui clsx)
 function cn(...classes: Array<string | undefined | false>) {
   return classes.filter(Boolean).join(" ");
 }
@@ -16,6 +16,7 @@ export function Button({
 }: ButtonProps) {
   const base =
     "inline-flex items-center justify-center h-9 px-4 text-sm font-medium rounded-md border transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-400 disabled:opacity-50 disabled:pointer-events-none";
+
   const variants: Record<NonNullable<ButtonProps["variant"]>, string> = {
     default:
       "bg-slate-900 text-white border-transparent hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-white",

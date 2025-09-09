@@ -12,9 +12,10 @@ import {
   Sun,
   Moon,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+// ✅ trocados para caminhos relativos (bypass do alias @)
+import { Button } from "../../components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
+import { Badge } from "../../components/ui/badge";
 
 // =============================
 // Perfil & Tema
@@ -216,10 +217,9 @@ const content = {
       light: "Light Mode",
     },
   },
-} as const; // <- importante para TS
+} as const;
 
-// Idioma literal derivado do objeto content
-type Lang = keyof typeof content; // 'pt' | 'en'
+type Lang = keyof typeof content;
 
 // =============================
 // Utils
@@ -253,7 +253,6 @@ export default function ResumeOnline() {
   const [dark, setDark] = useState(false);
   const t = useMemo(() => content[lang], [lang]);
 
-  // Preferência de tema
   useEffect(() => {
     try {
       const saved = localStorage.getItem("fp_theme");
@@ -274,7 +273,6 @@ export default function ResumeOnline() {
     } catch {}
   }, [dark]);
 
-  // QR
   useEffect(() => {
     setQr(getQrUrl());
   }, []);
@@ -342,9 +340,7 @@ export default function ResumeOnline() {
               <div className="inline-flex rounded-full bg-white/20 p-1 w-fit">
                 <Button
                   variant="secondary"
-                  className={`rounded-full px-4 ${
-                    lang === "pt" ? "bg-white text-black" : "text-white"
-                  }`}
+                  className={`rounded-full px-4 ${lang === "pt" ? "bg-white text-black" : "text-white"}`}
                   onClick={() => setLang("pt")}
                   aria-label="Ver em Português"
                 >
@@ -352,9 +348,7 @@ export default function ResumeOnline() {
                 </Button>
                 <Button
                   variant="secondary"
-                  className={`rounded-full px-4 ${
-                    lang === "en" ? "bg-white text-black" : "text-white"
-                  }`}
+                  className={`rounded-full px-4 ${lang === "en" ? "bg-white text-black" : "text-white"}`}
                   onClick={() => setLang("en")}
                   aria-label="View in English"
                 >
@@ -372,10 +366,7 @@ export default function ResumeOnline() {
             </div>
           </div>
         </div>
-        <div
-          className="absolute -bottom-6 right-0 h-16 w-2/3 rotate-2"
-          style={{ background: "rgba(255,255,255,0.15)" }}
-        />
+        <div className="absolute -bottom-6 right-0 h-16 w-2/3 rotate-2" style={{ background: "rgba(255,255,255,0.15)" }} />
       </header>
 
       {/* Resumo */}
@@ -411,20 +402,20 @@ export default function ResumeOnline() {
               {t.sections.about}
             </CardTitle>
           </CardHeader>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={lang + "-about"}
-              variants={langVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
-              transition={{ duration: 0.35 }}
-            >
-              <CardContent className="text-slate-700 dark:text-slate-300 leading-relaxed">
-                {t.about}
-              </CardContent>
-            </motion.div>
-          </AnimatePresence>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={lang + "-about"}
+            variants={langVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            transition={{ duration: 0.35 }}
+          >
+            <CardContent className="text-slate-700 dark:text-slate-300 leading-relaxed">
+              {t.about}
+            </CardContent>
+          </motion.div>
+        </AnimatePresence>
         </Card>
       </section>
 
@@ -452,9 +443,7 @@ export default function ResumeOnline() {
                   {t.education.map((e, idx) => (
                     <div key={idx}>
                       <p className="font-medium text-slate-900 dark:text-slate-100">{e.course}</p>
-                      <p className="text-sm text-slate-600 dark:text-slate-400">
-                        {e.place} • {e.period}
-                      </p>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">{e.place} • {e.period}</p>
                     </div>
                   ))}
                 </motion.div>
@@ -480,9 +469,7 @@ export default function ResumeOnline() {
                   transition={{ duration: 0.35 }}
                   className="list-disc pl-5 space-y-2 text-slate-700 dark:text-slate-300"
                 >
-                  {t.certs.map((c, i) => (
-                    <li key={i}>{c}</li>
-                  ))}
+                  {t.certs.map((c, i) => (<li key={i}>{c}</li>))}
                 </motion.ul>
               </AnimatePresence>
             </CardContent>
@@ -506,9 +493,7 @@ export default function ResumeOnline() {
                   transition={{ duration: 0.35 }}
                   className="list-disc pl-5 space-y-2 text-slate-700 dark:text-slate-300"
                 >
-                  {t.extras.map((x, i) => (
-                    <li key={i}>{x}</li>
-                  ))}
+                  {t.extras.map((x, i) => (<li key={i}>{x}</li>))}
                 </motion.ul>
               </AnimatePresence>
             </CardContent>
@@ -544,17 +529,11 @@ export default function ResumeOnline() {
                       className="relative pl-6"
                     >
                       <div className="absolute left-0 top-1.5 h-full w-0.5 bg-slate-200 dark:bg-slate-700" />
-                      <div
-                        className="absolute left-[-5px] top-1.5 h-2.5 w-2.5 rounded-full"
-                        style={{ background: profile.theme.brand }}
-                      />
+                      <div className="absolute left-[-5px] top-1.5 h-2.5 w-2.5 rounded-full" style={{ background: profile.theme.brand }} />
                       <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                        {exp.role}{" "}
-                        <span className="text-slate-500 dark:text-slate-400">• {exp.company}</span>
+                        {exp.role} <span className="text-slate-500 dark:text-slate-400">• {exp.company}</span>
                       </h3>
-                      <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
-                        {exp.period}
-                      </p>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">{exp.period}</p>
                       <ul className="space-y-1 text-slate-700 dark:text-slate-300">
                         {exp.bullets.map((b, i) => (
                           <li key={i} className="flex items-start gap-2">
@@ -579,38 +558,26 @@ export default function ResumeOnline() {
             </CardHeader>
             <CardContent className="grid md:grid-cols-3 gap-5">
               <div>
-                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-2">
-                  {lang === "pt" ? "Técnicas" : "Technical"}
-                </p>
+                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-2">{lang === "pt" ? "Técnicas" : "Technical"}</p>
                 <div className="flex flex-wrap gap-2">
                   {t.skills.technical.map((s, i) => (
-                    <Badge key={i} className="rounded-full border-slate-300 dark:border-slate-700">
-                      {s}
-                    </Badge>
+                    <Badge key={i} className="rounded-full border-slate-300 dark:border-slate-700">{s}</Badge>
                   ))}
                 </div>
               </div>
               <div>
-                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-2">
-                  {lang === "pt" ? "Gestão" : "Management"}
-                </p>
+                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-2">{lang === "pt" ? "Gestão" : "Management"}</p>
                 <div className="flex flex-wrap gap-2">
                   {t.skills.management.map((s, i) => (
-                    <Badge key={i} className="rounded-full border-slate-300 dark:border-slate-700">
-                      {s}
-                    </Badge>
+                    <Badge key={i} className="rounded-full border-slate-300 dark:border-slate-700">{s}</Badge>
                   ))}
                 </div>
               </div>
               <div>
-                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-2">
-                  {lang === "pt" ? "Idiomas" : "Languages"}
-                </p>
+                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-2">{lang === "pt" ? "Idiomas" : "Languages"}</p>
                 <div className="flex flex-wrap gap-2">
                   {t.skills.languages.map((s, i) => (
-                    <Badge key={i} className="rounded-full border-slate-300 dark:border-slate-700">
-                      {s}
-                    </Badge>
+                    <Badge key={i} className="rounded-full border-slate-300 dark:border-slate-700">{s}</Badge>
                   ))}
                 </div>
               </div>
@@ -659,9 +626,7 @@ export default function ResumeOnline() {
                 <div className="ml-auto flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 p-2">
                   <img src={qr} alt="QR Code do currículo" className="h-16 w-16" />
                   <div className="text-xs text-slate-600 dark:text-slate-400">
-                    {lang === "pt"
-                      ? "Aponte a câmera para acessar este currículo"
-                      : "Point your camera to access this resume"}
+                    {lang === "pt" ? "Aponte a câmera para acessar este currículo" : "Point your camera to access this resume"}
                   </div>
                 </div>
               )}
