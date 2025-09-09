@@ -134,16 +134,10 @@ tailwind.config.ts com darkMode: 'class'
     → Rode npm ci (instalação limpa) e depois npm run build.
     → Verifique versão do Node (LTS 18/20).
 
-📝 Licença
-
-Você pode escolher a licença que preferir (por exemplo, MIT).
-Crie um arquivo LICENSE se desejar.
-👤 Autor
-
-Felipe Pessoa de Sousa — LinkedIn
 
 
----
 
-Quer que eu já gere um **`README.md` traduzido em inglês** para a versão do repositório internacional (caso você tenha público fora do Brasil)?
-::contentReference[oaicite:0]{index=0}
+
+
+
+
