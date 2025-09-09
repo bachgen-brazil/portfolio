@@ -24,7 +24,7 @@ const profile = {
   name: "Felipe Pessoa de Sousa",
   location: "Macaé – RJ, Brasil",
   email: "felipe7rugany@gmail.com",
-  linkedin: "https://www.linkedin.com/in/SEU-LINK-AQUI", // ajuste aqui
+  linkedin: "https://www.linkedin.com/in/felipepessoadesousa/", // ajuste aqui
   whatsapp:
     "https://wa.me/5522992474747?text=Ol%C3%A1%20Felipe%2C%20vi%20seu%20curr%C3%ADculo%20online",
   headline_pt:
@@ -101,9 +101,6 @@ const content = {
       "Medical First Aid",
     ],
     extras: [
-      "MBA em Gestão Empresarial – IBMEC (em andamento)",
-      "Bacharelado em Ciências Contábeis – UNIFESO",
-      "Engenharia de Produção – Cruzeiro do Sul (em andamento)",
       "UX/UI Design – UX Unicórnio (2024)",
       "Full Stack Development – Infinity School (2022–2023)",
       "Power BI – Infinity School (2022–2023)",
@@ -187,9 +184,6 @@ const content = {
       "Medical First Aid",
     ],
     extras: [
-      "MBA in Business Management – IBMEC (ongoing)",
-      "B.Sc. in Accounting – UNIFESO",
-      "Production Engineering – Cruzeiro do Sul (ongoing)",
       "UX/UI Design – UX Unicórnio (2024)",
       "Full Stack Development – Infinity School (2022–2023)",
       "Power BI – Infinity School (2022–2023)",
