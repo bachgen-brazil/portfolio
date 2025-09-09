@@ -41,7 +41,7 @@ const profile = {
 };
 
 // =============================
-// Conteúdo PT/EN
+// Conteúdo PT/EN (congelado)
 // =============================
 const content = {
   pt: {
@@ -216,7 +216,10 @@ const content = {
       light: "Light Mode",
     },
   },
-};
+} as const; // <- importante para TS
+
+// Idioma literal derivado do objeto content
+type Lang = keyof typeof content; // 'pt' | 'en'
 
 // =============================
 // Utils
@@ -245,11 +248,12 @@ const langVariants = {
 // Componente principal
 // =============================
 export default function ResumeOnline() {
-  const [lang, setLang] = useState("pt");
+  const [lang, setLang] = useState<Lang>("pt");
   const [qr, setQr] = useState("");
   const [dark, setDark] = useState(false);
   const t = useMemo(() => content[lang], [lang]);
 
+  // Preferência de tema
   useEffect(() => {
     try {
       const saved = localStorage.getItem("fp_theme");
@@ -270,12 +274,31 @@ export default function ResumeOnline() {
     } catch {}
   }, [dark]);
 
+  // QR
   useEffect(() => {
     setQr(getQrUrl());
   }, []);
 
   return (
     <div className="relative min-h-screen w-full bg-white dark:bg-slate-950 transition-colors duration-500">
+      {/* Overlay animado ao alternar tema */}
+      <AnimatePresence>
+        <motion.div
+          key={dark ? "dark" : "light"}
+          className="pointer-events-none fixed inset-0 z-10"
+          variants={overlayVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          transition={{ duration: 0.35, ease: "easeInOut" }}
+          style={{
+            background: dark
+              ? "radial-gradient(1200px 800px at 50% -10%, rgba(0,0,0,0.35), transparent 70%)"
+              : "radial-gradient(1200px 800px at 50% -10%, rgba(255,255,255,0.6), transparent 70%)",
+          }}
+        />
+      </AnimatePresence>
+
       {/* HERO */}
       <header
         className="relative overflow-hidden"
@@ -323,6 +346,7 @@ export default function ResumeOnline() {
                     lang === "pt" ? "bg-white text-black" : "text-white"
                   }`}
                   onClick={() => setLang("pt")}
+                  aria-label="Ver em Português"
                 >
                   🇧🇷
                 </Button>
@@ -332,6 +356,7 @@ export default function ResumeOnline() {
                     lang === "en" ? "bg-white text-black" : "text-white"
                   }`}
                   onClick={() => setLang("en")}
+                  aria-label="View in English"
                 >
                   🇬🇧
                 </Button>
@@ -347,10 +372,308 @@ export default function ResumeOnline() {
             </div>
           </div>
         </div>
+        <div
+          className="absolute -bottom-6 right-0 h-16 w-2/3 rotate-2"
+          style={{ background: "rgba(255,255,255,0.15)" }}
+        />
       </header>
 
-      {/* Conteúdo resumido (Resumo + Sobre mim + Experiência + Educação + Skills + Downloads) */}
-      {/* Por questão de espaço, não repito aqui todo o layout de cards — mas mantenha o código que já revisamos no canvas */}
+      {/* Resumo */}
+      <section className="mx-auto max-w-6xl px-6 py-10">
+        <Card className="border-0 shadow-md bg-white dark:bg-slate-900 transition-colors duration-500">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>
+              {lang === "pt" ? "Resumo Profissional" : "Professional Summary"}
+            </CardTitle>
+          </CardHeader>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={lang + "-summary"}
+              variants={langVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={{ duration: 0.35 }}
+            >
+              <CardContent className="text-slate-700 dark:text-slate-300 leading-relaxed">
+                {t.summary}
+              </CardContent>
+            </motion.div>
+          </AnimatePresence>
+        </Card>
+      </section>
+
+      {/* Sobre mim */}
+      <section className="mx-auto max-w-6xl px-6">
+        <Card className="border-0 shadow-md bg-white dark:bg-slate-900 transition-colors duration-500">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>
+              {t.sections.about}
+            </CardTitle>
+          </CardHeader>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={lang + "-about"}
+              variants={langVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              transition={{ duration: 0.35 }}
+            >
+              <CardContent className="text-slate-700 dark:text-slate-300 leading-relaxed">
+                {t.about}
+              </CardContent>
+            </motion.div>
+          </AnimatePresence>
+        </Card>
+      </section>
+
+      {/* Grid principal */}
+      <main className="mx-auto max-w-6xl px-6 pb-16 grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+        {/* Coluna esquerda */}
+        <div className="col-span-1 space-y-6">
+          {/* Educação */}
+          <Card className="border-0 shadow-md bg-white dark:bg-slate-900 transition-colors duration-500">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>
+                {t.sections.education}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={lang + "-edu"}
+                  variants={langVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  transition={{ duration: 0.35 }}
+                >
+                  {t.education.map((e, idx) => (
+                    <div key={idx}>
+                      <p className="font-medium text-slate-900 dark:text-slate-100">{e.course}</p>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">
+                        {e.place} • {e.period}
+                      </p>
+                    </div>
+                  ))}
+                </motion.div>
+              </AnimatePresence>
+            </CardContent>
+          </Card>
+
+          {/* Certificações */}
+          <Card className="border-0 shadow-md bg-white dark:bg-slate-900 transition-colors duration-500">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>
+                {t.sections.certs}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <AnimatePresence mode="wait">
+                <motion.ul
+                  key={lang + "-certs"}
+                  variants={langVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  transition={{ duration: 0.35 }}
+                  className="list-disc pl-5 space-y-2 text-slate-700 dark:text-slate-300"
+                >
+                  {t.certs.map((c, i) => (
+                    <li key={i}>{c}</li>
+                  ))}
+                </motion.ul>
+              </AnimatePresence>
+            </CardContent>
+          </Card>
+
+          {/* Extras */}
+          <Card className="border-0 shadow-md bg-white dark:bg-slate-900 transition-colors duration-500">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>
+                {t.sections.extras}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <AnimatePresence mode="wait">
+                <motion.ul
+                  key={lang + "-extras"}
+                  variants={langVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  transition={{ duration: 0.35 }}
+                  className="list-disc pl-5 space-y-2 text-slate-700 dark:text-slate-300"
+                >
+                  {t.extras.map((x, i) => (
+                    <li key={i}>{x}</li>
+                  ))}
+                </motion.ul>
+              </AnimatePresence>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Coluna direita */}
+        <div className="col-span-2 space-y-6">
+          {/* Experiência */}
+          <Card className="border-0 shadow-md bg-white dark:bg-slate-900 transition-colors duration-500">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>
+                {t.sections.experience}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={lang + "-exp"}
+                  variants={langVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                  transition={{ duration: 0.35 }}
+                >
+                  {t.experience.map((exp, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, y: 8 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.35, delay: idx * 0.06 }}
+                      className="relative pl-6"
+                    >
+                      <div className="absolute left-0 top-1.5 h-full w-0.5 bg-slate-200 dark:bg-slate-700" />
+                      <div
+                        className="absolute left-[-5px] top-1.5 h-2.5 w-2.5 rounded-full"
+                        style={{ background: profile.theme.brand }}
+                      />
+                      <h3 className="font-semibold text-slate-900 dark:text-slate-100">
+                        {exp.role}{" "}
+                        <span className="text-slate-500 dark:text-slate-400">• {exp.company}</span>
+                      </h3>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
+                        {exp.period}
+                      </p>
+                      <ul className="space-y-1 text-slate-700 dark:text-slate-300">
+                        {exp.bullets.map((b, i) => (
+                          <li key={i} className="flex items-start gap-2">
+                            <CheckCircle2 className="mt-0.5" size={16} style={{ color: profile.theme.brand }} />
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </AnimatePresence>
+            </CardContent>
+          </Card>
+
+          {/* Competências */}
+          <Card className="border-0 shadow-md bg-white dark:bg-slate-900 transition-colors duration-500">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>
+                {t.sections.skills}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="grid md:grid-cols-3 gap-5">
+              <div>
+                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-2">
+                  {lang === "pt" ? "Técnicas" : "Technical"}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {t.skills.technical.map((s, i) => (
+                    <Badge key={i} className="rounded-full border-slate-300 dark:border-slate-700">
+                      {s}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-2">
+                  {lang === "pt" ? "Gestão" : "Management"}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {t.skills.management.map((s, i) => (
+                    <Badge key={i} className="rounded-full border-slate-300 dark:border-slate-700">
+                      {s}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-2">
+                  {lang === "pt" ? "Idiomas" : "Languages"}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {t.skills.languages.map((s, i) => (
+                    <Badge key={i} className="rounded-full border-slate-300 dark:border-slate-700">
+                      {s}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Downloads & Contato */}
+          <Card className="border-0 shadow-md bg-white dark:bg-slate-900 transition-colors duration-500">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>
+                {t.sections.downloads}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-wrap items-center gap-3">
+              {/* Downloads */}
+              <a href={profile.cv_pt} download>
+                <Button className="rounded-2xl">
+                  <Download size={16} className="mr-2" /> {t.ctas.downloadPT}
+                </Button>
+              </a>
+              <a href={profile.cv_en} download>
+                <Button variant="outline" className="rounded-2xl">
+                  <Download size={16} className="mr-2" /> {t.ctas.downloadEN}
+                </Button>
+              </a>
+
+              {/* Contatos como botões */}
+              <a href={`mailto:${profile.email}`}>
+                <Button className="rounded-2xl">
+                  <Mail size={16} className="mr-2" /> {t.ctas.email}
+                </Button>
+              </a>
+              <a href={profile.whatsapp} target="_blank" rel="noreferrer">
+                <Button className="rounded-2xl">
+                  <Phone size={16} className="mr-2" /> {t.ctas.whatsapp}
+                </Button>
+              </a>
+              <a href={profile.linkedin} target="_blank" rel="noreferrer">
+                <Button className="rounded-2xl">
+                  <Linkedin size={16} className="mr-2" /> {t.ctas.linkedin}
+                </Button>
+              </a>
+
+              {/* QR Code */}
+              {qr && (
+                <div className="ml-auto flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-700 p-2">
+                  <img src={qr} alt="QR Code do currículo" className="h-16 w-16" />
+                  <div className="text-xs text-slate-600 dark:text-slate-400">
+                    {lang === "pt"
+                      ? "Aponte a câmera para acessar este currículo"
+                      : "Point your camera to access this resume"}
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      </main>
+
+      {/* Rodapé */}
+      <footer className="py-10 text-center text-xs text-slate-500 dark:text-slate-400">
+        © {new Date().getFullYear()} {profile.name}. • Navy + Cyan • Dark/Light toggle • QR ready.
+      </footer>
     </div>
   );
 }
