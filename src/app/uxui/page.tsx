@@ -1,5 +1,3 @@
-mkdir -p src/app/uxui
-cat > src/app/uxui/page.tsx <<'TSX'
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
@@ -71,4 +69,4 @@ export default function UXUIPage() {
     </main>
   );
 }
-TSX
+
