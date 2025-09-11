@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useMemo, useEffect } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Download,
@@ -14,10 +13,10 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
-// UI components (import RELATIVO para evitar erros de alias)
 import { Button } from "../../components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
 import { Badge } from "../../components/ui/badge";
+import Logo from "../../components/Logo";
 
 /* =============================
    Perfil & Tema
@@ -38,11 +37,8 @@ const profile = {
   theme: {
     brand: "#003366",
     brandAlt: "#00D1FF",
-    ink: "#1E293B",
-    soft: "#F0F7FA",
   },
-  logoSrc: "portfolio/public/logo-felipe.png", // imagem usada também na Home
-};
+} as const;
 
 /* =============================
    Conteúdo PT/EN
@@ -237,10 +233,7 @@ const langVariants = {
 export default function ResumeOnline() {
   const [lang, setLang] = useState<"pt" | "en">("pt");
   const [dark, setDark] = useState(false);
-  const t: (typeof content)["pt"] | (typeof content)["en"] = useMemo(
-    () => content[lang],
-    [lang]
-  );
+  const t = useMemo(() => content[lang], [lang]);
 
   // tema
   useEffect(() => {
@@ -280,16 +273,7 @@ export default function ResumeOnline() {
               transition={{ duration: 0.5 }}
               className="flex items-center gap-4"
             >
-              <div className="relative h-12 w-12 sm:h-14 sm:w-14">
-                <Image
-                  src={profile.logoSrc}
-                  alt="Logo Felipe Pessoa"
-                  fill
-                  className="object-contain"
-                  sizes="56px"
-                  priority
-                />
-              </div>
+              <Logo size={56} />
               <h1 className="text-3xl sm:text-4xl font-bold">
                 {profile.name}
               </h1>
@@ -371,7 +355,9 @@ export default function ResumeOnline() {
         <section className="grid md:grid-cols-2 gap-6">
           <Card className="border-0 shadow-md bg-white dark:bg-slate-900">
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>{lang === "pt" ? "Resumo Profissional" : "Professional Summary"}</CardTitle>
+              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>
+                {lang === "pt" ? "Resumo Profissional" : "Professional Summary"}
+              </CardTitle>
             </CardHeader>
             <CardContent className="text-slate-700 dark:text-slate-300 leading-relaxed">
               <p>{t.summary}</p>
@@ -380,7 +366,9 @@ export default function ResumeOnline() {
 
           <Card className="border-0 shadow-md bg-white dark:bg-slate-900">
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>{t.sections.about}</CardTitle>
+              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>
+                {t.sections.about}
+              </CardTitle>
             </CardHeader>
             <CardContent className="text-slate-700 dark:text-slate-300 leading-relaxed">
               <p>{t.about}</p>
@@ -392,7 +380,9 @@ export default function ResumeOnline() {
         <section>
           <Card className="border-0 shadow-md bg-white dark:bg-slate-900">
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>{t.sections.experience}</CardTitle>
+              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>
+                {t.sections.experience}
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {t.experience.map((exp, i) => (
@@ -422,13 +412,17 @@ export default function ResumeOnline() {
         <section className="grid md:grid-cols-2 gap-6">
           <Card className="border-0 shadow-md bg-white dark:bg-slate-900">
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>{t.sections.education}</CardTitle>
+              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>
+                {t.sections.education}
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {t.education.map((ed, i) => (
                 <div key={i}>
                   <p className="font-medium">{ed.course}</p>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">{ed.place} — {ed.period}</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">
+                    {ed.place} — {ed.period}
+                  </p>
                 </div>
               ))}
             </CardContent>
@@ -436,7 +430,9 @@ export default function ResumeOnline() {
 
           <Card className="border-0 shadow-md bg-white dark:bg-slate-900">
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>{t.sections.certs}</CardTitle>
+              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>
+                {t.sections.certs}
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               {t.certs.map((c, i) => (
@@ -450,7 +446,9 @@ export default function ResumeOnline() {
         <section className="grid md:grid-cols-2 gap-6">
           <Card className="border-0 shadow-md bg-white dark:bg-slate-900">
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>{t.sections.extras}</CardTitle>
+              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>
+                {t.sections.extras}
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               {t.extras.map((x, i) => (
@@ -461,11 +459,13 @@ export default function ResumeOnline() {
 
           <Card className="border-0 shadow-md bg-white dark:bg-slate-900">
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>{t.sections.skills}</CardTitle>
+              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>
+                {t.sections.skills}
+              </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <p className="text-sm font-semibold mb-2">Técnicas</p>
+                <p className="text-sm font-semibold mb-2">{lang === "pt" ? "Técnicas" : "Technical"}</p>
                 <div className="flex flex-wrap gap-2">
                   {t.skills.technical.map((s, i) => (
                     <Badge key={i} className="rounded-full border-slate-300 dark:border-slate-700">{s}</Badge>
@@ -473,7 +473,7 @@ export default function ResumeOnline() {
                 </div>
               </div>
               <div>
-                <p className="text-sm font-semibold mb-2">Gestão</p>
+                <p className="text-sm font-semibold mb-2">{lang === "pt" ? "Gestão" : "Management"}</p>
                 <div className="flex flex-wrap gap-2">
                   {t.skills.management.map((s, i) => (
                     <Badge key={i} className="rounded-full border-slate-300 dark:border-slate-700">{s}</Badge>
@@ -496,7 +496,9 @@ export default function ResumeOnline() {
         <section>
           <Card className="border-0 shadow-md bg-white dark:bg-slate-900">
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>{t.sections.downloads}</CardTitle>
+              <CardTitle className="text-lg" style={{ color: profile.theme.brand }}>
+                {t.sections.downloads}
+              </CardTitle>
             </CardHeader>
             <CardContent className="flex flex-wrap gap-3">
               <a href={profile.cv_pt} target="_blank" rel="noreferrer">
