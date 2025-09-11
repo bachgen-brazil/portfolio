@@ -1,4 +1,3 @@
-cat > src/app/page.tsx <<'TSX'
 'use client';
 
 import Link from "next/link";
@@ -89,4 +88,3 @@ export default function Home() {
     </div>
   );
 }
-TSX
