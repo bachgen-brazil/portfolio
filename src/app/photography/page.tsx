@@ -1,5 +1,3 @@
-mkdir -p src/app/photography
-cat > src/app/photography/page.tsx <<'TSX'
 'use client';
 
 import Image from "next/image";
@@ -64,4 +62,3 @@ export default function PhotographyPage() {
     </main>
   );
 }
-TSX
