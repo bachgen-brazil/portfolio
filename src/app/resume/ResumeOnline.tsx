@@ -41,7 +41,7 @@ const profile = {
     ink: "#1E293B",
     soft: "#F0F7FA",
   },
-  logoSrc: "/logo-felipe.png", // imagem usada também na Home
+  logoSrc: "portfolio/public/logo-felipe.png", // imagem usada também na Home
 };
 
 /* =============================
