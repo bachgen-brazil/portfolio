@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Button } from ".components/ui/button"; // <— caminho correto
+import { Button } from "./ui/button"; // <— caminho correto
 import { Moon, Sun } from "lucide-react";
 
 export default function NavBar() {
