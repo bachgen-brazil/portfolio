@@ -27,7 +27,7 @@ export default function Home() {
             <div className="relative h-14 w-14 sm:h-16 sm:w-16">
               {/* Ajuste o caminho do logo aqui */}
               <Image
-                src="/public/logo-felipe.png"
+                src="logo-felipe.png"
                 alt="Logo Felipe Pessoa"
                 fill
                 className="object-contain"
