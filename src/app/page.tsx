@@ -38,9 +38,7 @@ export default function Home() {
 
       <main className="mx-auto max-w-6xl px-6 py-10 grid grid-cols-1 lg:grid-cols-3 gap-6">
         <Card className="border-0 shadow-md bg-white dark:bg-slate-900 lg:col-span-2">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg" style={{ color: theme.brand }}>Sobre mim</CardTitle>
-          </CardHeader>
+          <CardHeader className="pb-2"><CardTitle className="text-lg" style={{ color: theme.brand }}>Sobre mim</CardTitle></CardHeader>
           <CardContent className="text-slate-700 dark:text-slate-300 leading-relaxed space-y-4">
             <p>Experiência em auditorias marítimas, inspeções de embarcações offshore e conformidade regulatória. Atual supervisão de equipe de oficiais portuários no Porto de Macaé.</p>
             <p>Exploro UX/UI e fotografia como extensões naturais de comunicação clara e rigor operacional — resultando em soluções objetivas, funcionais e visuais.</p>
@@ -53,9 +51,7 @@ export default function Home() {
         </Card>
 
         <Card className="border-0 shadow-md bg-white dark:bg-slate-900">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg" style={{ color: theme.brand }}>Formações & Highlights</CardTitle>
-          </CardHeader>
+          <CardHeader className="pb-2"><CardTitle className="text-lg" style={{ color: theme.brand }}>Formações & Highlights</CardTitle></CardHeader>
           <CardContent className="space-y-4">
             <div><p className="font-medium text-slate-900 dark:text-slate-100">Ciências Náuticas</p><p className="text-sm text-slate-600 dark:text-slate-400">CIABA — Belém</p></div>
             <div><p className="font-medium text-slate-900 dark:text-slate-100">Port Management & Logistics</p><p className="text-sm text-slate-600 dark:text-slate-400">Abracomex</p></div>
@@ -75,9 +71,7 @@ export default function Home() {
         </Card>
 
         <Card className="border-0 shadow-md bg-white dark:bg-slate-900 lg:col-span-3">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg" style={{ color: theme.brand }}>Acessos rápidos</CardTitle>
-          </CardHeader>
+          <CardHeader className="pb-2"><CardTitle className="text-lg" style={{ color: theme.brand }}>Acessos rápidos</CardTitle></CardHeader>
           <CardContent className="flex flex-wrap gap-3">
             <Link href="/resume"><Button className="rounded-2xl">Currículo</Button></Link>
             <Link href="/uxui"><Button variant="outline" className="rounded-2xl">Portfólio UX/UI</Button></Link>
