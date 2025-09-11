@@ -1,9 +1,9 @@
 'use client';
 
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
+import Logo from "../components/Logo";
 
 const theme = { brand: "#003366", brandAlt: "#00D1FF" };
 const langVariants = { initial: { opacity: 0, y: 15 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -15 } };
@@ -24,17 +24,7 @@ export default function Home() {
             transition={{ duration: 0.5 }}
             className="flex items-center gap-4"
           >
-            <div className="relative h-14 w-14 sm:h-16 sm:w-16">
-              {/* Ajuste o caminho do logo aqui */}
-              <Image
-                src="portfolio/src/logo-felipe.png"
-                alt="Logo Felipe Pessoa"
-                fill
-                className="object-contain"
-                sizes="64px"
-                priority
-              />
-            </div>
+            <Logo size={64} className="rounded-md" />
             <div className="flex flex-col">
               <h1 className="text-2xl sm:text-3xl font-bold">Felipe Pessoa de Sousa</h1>
               <AnimatePresence mode="wait">
@@ -52,15 +42,10 @@ export default function Home() {
             </div>
           </motion.div>
         </div>
-        <div
-          className="absolute -bottom-6 right-0 h-16 w-2/3 rotate-2"
-          style={{ background: "rgba(255,255,255,0.15)" }}
-        />
       </header>
 
-      {/* CONTEÚDO: sem botões extras, sem “Acessos rápidos” */}
       <main className="mx-auto max-w-6xl px-6 py-10 grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Sobre mim (sem botões) */}
+        {/* Sobre mim */}
         <Card className="border-0 shadow-md bg-white dark:bg-slate-900 lg:col-span-2">
           <CardHeader className="pb-2">
             <CardTitle className="text-lg" style={{ color: theme.brand }}>Sobre mim</CardTitle>
@@ -72,7 +57,6 @@ export default function Home() {
               no Porto de Macaé, com foco em eficiência operacional, SMS e confiabilidade técnica.
             </p>
             <div className="flex flex-wrap gap-2 pt-1">
-              {/* Mantemos só badges informativas */}
               <Badge className="rounded-full border-slate-300 dark:border-slate-700">Auditorias Marítimas</Badge>
               <Badge className="rounded-full border-slate-300 dark:border-slate-700">SMS & Compliance</Badge>
               <Badge className="rounded-full border-slate-300 dark:border-slate-700">Relatórios Técnicos</Badge>
@@ -83,7 +67,6 @@ export default function Home() {
           </CardContent>
         </Card>
 
-        {/* Formações & Highlights (sem botões) */}
         <Card className="border-0 shadow-md bg-white dark:bg-slate-900">
           <CardHeader className="pb-2">
             <CardTitle className="text-lg" style={{ color: theme.brand }}>Formações & Highlights</CardTitle>
