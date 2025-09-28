@@ -94,15 +94,12 @@ const content = {
       { course: "Port Management & Logistics", place: "Abracomex", period: "2017" },
     ],
     certs: [
-      "STCW III/1 – Oficial de Máquinas (Praticante habilitado)",
+      "STCW III/1 – Oficial de Máquinas",
       "Survival, Firefighting (básico e avançado), Tanker Operations",
       "Survival Crafts & Rescue Boats / Fast Rescue Boats",
       "Medical First Aid",
     ],
     extras: [
-      "MBA em Gestão Empresarial – IBMEC (em andamento)",
-      "Bacharelado em Ciências Contábeis – UNIFESO",
-      "Engenharia de Produção – Cruzeiro do Sul (em andamento)",
       "UX/UI Design – UX Unicórnio (2024)",
       "Full Stack Development – Infinity School (2022–2023)",
       "Power BI – Infinity School (2022–2023)",
@@ -180,15 +177,12 @@ const content = {
       { course: "Port Management & Logistics", place: "Abracomex", period: "2017" },
     ],
     certs: [
-      "STCW III/1 – Engine Officer (Cadet-qualified)",
+      "STCW III/1 – Engine Officer",
       "Survival, Firefighting (basic & advanced), Tanker Operations",
       "Survival Crafts & Rescue Boats / Fast Rescue Boats",
       "Medical First Aid",
     ],
     extras: [
-      "MBA in Business Management – IBMEC (ongoing)",
-      "B.Sc. in Accounting – UNIFESO",
-      "Production Engineering – Cruzeiro do Sul (ongoing)",
       "UX/UI Design – UX Unicórnio (2024)",
       "Full Stack Development – Infinity School (2022–2023)",
       "Power BI – Infinity School (2022–2023)",
