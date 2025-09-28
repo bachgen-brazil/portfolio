@@ -25,7 +25,7 @@ const profile = {
   name: "Felipe Pessoa de Sousa",
   location: "Macaé – RJ, Brasil",
   email: "felipe7rugany@gmail.com",
-  linkedin: "https://www.linkedin.com/in/SEU-LINK-AQUI", // ajuste aqui
+  linkedin: "https://www.linkedin.com/in/felipepessoadesousa", // ajuste aqui
   whatsapp:
     "https://wa.me/5522992474747?text=Ol%C3%A1%20Felipe%2C%20vi%20seu%20curr%C3%ADculo%20online",
   headline_pt:
